@@ -56,17 +56,3 @@ resource "aws_s3_bucket" "sse_kms" {
 
   force_destroy = true
 }
-
-resource "aws_s3_bucket" "sse_c" {
-  bucket = "reireias.sse.c"
-  acl    = "public-read"
-  policy = templatefile("files/bucket_policy_template.json", {
-    bucket_name = "reireias.sse.c"
-  })
-
-  website {
-    index_document = "index.html"
-  }
-
-  force_destroy = true
-}
