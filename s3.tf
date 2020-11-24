@@ -1,3 +1,14 @@
+resource "aws_s3_bucket" "no_sse" {
+  bucket = "reireias.sse.none"
+  acl    = "public-read"
+
+  website {
+    index_document = "index.html"
+  }
+
+  force_destroy = true
+}
+
 resource "aws_s3_bucket" "sse_s3" {
   bucket = "reireias.sse.s3"
   acl    = "public-read"
