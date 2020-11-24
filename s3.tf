@@ -26,3 +26,9 @@ resource "aws_s3_bucket" "sse_kms" {
 
   force_destroy = true
 }
+
+resource "aws_s3_bucket" "sse_c" {
+  bucket = "reireias.sse.c"
+
+  force_destroy = true
+}
