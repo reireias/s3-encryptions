@@ -1,5 +1,6 @@
 resource "aws_s3_bucket" "sse_s3" {
   bucket = "reireias.sse.s3"
+  acl    = "public-read"
 
   server_side_encryption_configuration {
     rule {
@@ -9,11 +10,16 @@ resource "aws_s3_bucket" "sse_s3" {
     }
   }
 
+  website {
+    index_document = "index.html"
+  }
+
   force_destroy = true
 }
 
 resource "aws_s3_bucket" "sse_kms" {
   bucket = "reireias.sse.kms"
+  acl    = "public-read"
 
   server_side_encryption_configuration {
     rule {
@@ -24,11 +30,20 @@ resource "aws_s3_bucket" "sse_kms" {
     }
   }
 
+  website {
+    index_document = "index.html"
+  }
+
   force_destroy = true
 }
 
 resource "aws_s3_bucket" "sse_c" {
   bucket = "reireias.sse.c"
+  acl    = "public-read"
+
+  website {
+    index_document = "index.html"
+  }
 
   force_destroy = true
 }
