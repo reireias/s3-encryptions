@@ -63,6 +63,11 @@ $ curl https://s3-ap-northeast-1.amazonaws.com/reireias.sse.kms/index.html
 ```
 
 ### Presigned URL
+Set default signature version to SigV4.
+
+```console
+$ aws configure set default.s3.signature_version s3v4
+```
 
 ```console
 $ curl $(aws s3 presign s3://reireias.sse.none/index.html)
@@ -72,7 +77,7 @@ $ curl $(aws s3 presign s3://reireias.sse.s3/index.html)
 #=> OK
 
 $ curl $(aws s3 presign s3://reireias.sse.kms/index.html)
-#=> Error
+#=> OK
 ```
 
 ### CloudFront
