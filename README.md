@@ -17,6 +17,20 @@ $ aws s3 cp files/index.html s3://reireias.sse.s3/
 $ aws s3 cp files/index.html s3://reireias.sse.kms/
 ```
 
+Check encryption status.
+
+```
+$ aws s3api head-object --bucket reireias.sse.none --key index.html
+#=> No encryption
+
+$ aws s3api head-object --bucket reireias.sse.s3 --key index.html
+#=> "ServerSideEncryption": "AES256",
+
+$ aws s3api head-object --bucket reireias.sse.kms --key index.html
+#=> "ServerSideEncryption": "aws:kms",
+#=> "SSEKMSKeyId": "arn:aws:kms:ap-northeast-1:xxxxxxxxxx:key/xxxxxxxxxxxxxxxxx"
+```
+
 ## Check download
 ### S3 Static Website
 
@@ -31,7 +45,7 @@ $ curl http://reireias.sse.kms.s3-website-ap-northeast-1.amazonaws.com/
 #=> Error
 ```
 
-### Get Object URL
+### Object URL
 
 ```
 $ curl https://s3-ap-northeast-1.amazonaws.com/reireias.sse.none/index.html
@@ -41,5 +55,18 @@ $ curl https://s3-ap-northeast-1.amazonaws.com/reireias.sse.s3/index.html
 #=> OK
 
 $ curl https://s3-ap-northeast-1.amazonaws.com/reireias.sse.kms/index.html
+#=> Error
+```
+
+### Presigned URL
+
+```
+$ curl $(aws s3 presign s3://reireias.sse.none/index.html)
+#=> OK
+
+$ curl $(aws s3 presign s3://reireias.sse.s3/index.html)
+#=> OK
+
+$ curl $(aws s3 presign s3://reireias.sse.kms/index.html)
 #=> Error
 ```
