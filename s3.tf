@@ -2,7 +2,8 @@ resource "aws_s3_bucket" "no_sse" {
   bucket = "reireias.sse.none"
   acl    = "public-read"
   policy = templatefile("files/bucket_policy_template.json", {
-    bucket_name = "reireias.sse.none"
+    bucket_name            = "reireias.sse.none"
+    origin_access_identity = aws_cloudfront_origin_access_identity.default.iam_arn
   })
 
   website {
@@ -16,7 +17,8 @@ resource "aws_s3_bucket" "sse_s3" {
   bucket = "reireias.sse.s3"
   acl    = "public-read"
   policy = templatefile("files/bucket_policy_template.json", {
-    bucket_name = "reireias.sse.s3"
+    bucket_name            = "reireias.sse.s3"
+    origin_access_identity = aws_cloudfront_origin_access_identity.default.iam_arn
   })
 
   server_side_encryption_configuration {
@@ -38,7 +40,8 @@ resource "aws_s3_bucket" "sse_kms" {
   bucket = "reireias.sse.kms"
   acl    = "public-read"
   policy = templatefile("files/bucket_policy_template.json", {
-    bucket_name = "reireias.sse.kms"
+    bucket_name            = "reireias.sse.kms"
+    origin_access_identity = aws_cloudfront_origin_access_identity.default.iam_arn
   })
 
   server_side_encryption_configuration {

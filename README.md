@@ -15,6 +15,10 @@ Upload objects.
 $ aws s3 cp files/index.html s3://reireias.sse.none/
 $ aws s3 cp files/index.html s3://reireias.sse.s3/
 $ aws s3 cp files/index.html s3://reireias.sse.kms/
+
+# for CloudFront
+$ aws s3 cp files/index.html s3://reireias.sse.s3/sse_s3/
+$ aws s3 cp files/index.html s3://reireias.sse.kms/sse_kms/
 ```
 
 Check encryption status.
@@ -68,5 +72,18 @@ $ curl $(aws s3 presign s3://reireias.sse.s3/index.html)
 #=> OK
 
 $ curl $(aws s3 presign s3://reireias.sse.kms/index.html)
+#=> Error
+```
+
+### CloudFront
+
+```console
+$ curl https://$(terraform output cloudfront_domain)/index.html
+#=> OK
+
+$ curl https://$(terraform output cloudfront_domain)/sse_s3/index.html
+#=> OK
+
+$ curl https://$(terraform output cloudfront_domain)/sse_kms/index.html
 #=> Error
 ```
